@@ -1,1 +1,3 @@
-# rock-paper-scissors-PY
+# Rock, Paper, Scissors Game - Python
+
+## Similar to JavaScript
