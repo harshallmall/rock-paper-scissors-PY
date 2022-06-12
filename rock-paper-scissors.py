@@ -1,37 +1,72 @@
-# Prerequisite - Import randint to generate random numbers.
+# import randint to generate random numbers
 from random import randint
-# Step One - Player chooses either Rock, Paper, or Scissors.
-player = input("Rock, Paper, Scissors")
-# Step Two - Print result of Step One with the string "vs." to show player selection.
-print(player)
-# Step Three - Call random function to generate a number to simulate the computer's selection.
-# The function parameter is set to select between the integers 1, 2, or 3.
-computer = randint(1, 3)
-# Step Four - Create if/elif/else statement for selection to equate the integers to the strings.
-if computer == 1:
-    computer = "Rock"
-elif computer == 2:
-    computer = "Paper"
-else:
-    computer = "Scissors"
-# Step Six - Print result of Step One and the result of Step Five with a space instead of a new line.
-# print(player, "vs", computer, end=" ")
-# Step Seven - Compare the game results with an if/elif/else statement to determine a winner.
-if player == computer:
-    print("Draw")
-elif player == "Rock" and computer == "Scissors":
-    print("Player wins")
-elif player == "Rock" and computer == "Paper":
-    print("Computer wins")
-elif player == "Paper" and computer == "Rock":
-    print("Player wins")
-elif player == "Paper" and computer == "Scissors":
-    print("Computer wins")
-elif player == "Scissors" and computer == "Rock":
-    print("Player wins")
-elif player == "Scissors" and computer == "Paper":
-    print("Computer wins")
-else:
-    print("Draw")
-# Step Eight - Print the result of the comparison of results.
-print(player, "vs", computer, end=" ")
+
+# players choose either from list of either rock, paper, or scissors.
+options = ["Rock", "Paper", "Scissors"]
+
+# game score variables with a global scope allow for score keeping in functions
+playerScore = 0
+computerScore = 0
+ties = 0
+
+# create a function to define the computerPlay's selection parameters
+def computerPlay(computerOptions):
+    if computerOptions == 1:
+        return "Rock"
+    elif computerOptions == 2:
+        return "Paper"
+    else:
+        return "Scissors"
+
+# call the random integer function in order to assign a number for the computerPlay
+randomNumbers = randint(1, 3)
+
+# create a function to define the playerPlay's selection parameters
+def playerPlay(playerOptions, playerChoices):
+    playerOptions = input("Rock, Paper, Scissors")
+    playerChoices = playerOptions.lower()
+    return playerOptions or playerChoices
+
+# create function to play one round of the game and add result to score variables
+def playRound(playerSelection, computerSelection):
+    if playerSelection == computerSelection:
+        print("Draw")
+        ties += 1
+    if playerSelection == "Rock" and computerSelection == "Scissors":
+        print("Player wins")
+        playerScore += 1
+    elif playerSelection == "Rock" and computerSelection == "Paper":
+        computerScore += 1
+        print("Computer wins")
+    elif playerSelection == "Paper" and computerSelection == "Rock":
+        playerScore += 1
+        print("Player wins")
+    elif playerSelection == "Paper" and computerSelection == "Scissors":
+        computerScore += 1
+        print("Computer wins")
+    elif playerSelection == "Scissors" and computerSelection == "Rock":
+        playerScore += 1
+        print("Player wins")
+    elif playerSelection == "Scissors" and computerSelection == "Paper":
+        computerScore += 1
+        print("Computer wins")
+    else:
+        print("Draw")
+
+# create function to play the game for five rounds with score keeping
+def gamePlay():
+    playerSelection = playerPlay
+    computerSelection = computerPlay
+    playRound(playerSelection=any, computerSelection=any)
+    i = 1
+    while i < 6:
+        i += 1
+        if playerScore == 3 or computerScore == 3:
+            break
+        if playerScore > computerScore:
+            print("Player wins game")
+        elif computerScore > playerScore:
+            print("Computer wins game")
+
+if __name__ == '__main__':
+    gamePlay()
